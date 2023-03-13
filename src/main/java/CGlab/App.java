@@ -9,10 +9,22 @@ public class App {
     String version = "0.02";
 
     public static void main(String[] args) {
+        if (args.length < 3) {
+            System.out.println("Niepoprawne argumenty! Użyj: java App [ścieżka] [szerokość] [wysokość]");
+            return;
+        }
 
-        Renderer mainRenderer = new Renderer(System.getProperty("user.home")+"/render.png");
+        String filePath = args[0];
+        Integer width = Integer.parseInt(args[1]);
+        Integer height = Integer.parseInt(args[2]);
+
+        System.out.println(filePath);
+        System.out.println(width);
+        System.out.println(height);
+
+        Renderer mainRenderer = new Renderer(filePath);
         mainRenderer.clear();
-        mainRenderer.drawPoint(100, 100);
+        mainRenderer.drawPoint(width, height);
         try {
             mainRenderer.save();
         } catch (IOException ex) {
@@ -21,6 +33,6 @@ public class App {
     }
 
     public String getVersion() {
-	return this.version;
+        return this.version;
     }
 }
