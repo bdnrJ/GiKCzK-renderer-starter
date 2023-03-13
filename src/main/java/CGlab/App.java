@@ -24,7 +24,7 @@ public class App {
 
         Renderer mainRenderer = new Renderer(filePath);
         mainRenderer.clear();
-        mainRenderer.drawPoint(width, height);
+        mainRenderer.drawLineNaive(10, 50, 90, 30);
         try {
             mainRenderer.save();
         } catch (IOException ex) {
