@@ -36,7 +36,6 @@ public class Renderer {
     }
 
     public void drawLineNaive(int x0, int y0, int x1, int y1) {
-        // TODO: zaimplementuj
         int white = 255 | (255 << 8) | (255 << 16) | (255 << 24);
         int dy = y1 - y0;
         int dx = x1 - x0;
