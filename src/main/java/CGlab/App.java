@@ -1,5 +1,6 @@
 package CGlab;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +25,8 @@ public class App {
 
         Renderer mainRenderer = new Renderer(filePath);
         mainRenderer.clear();
-        mainRenderer.drawLineNaive(10, 50, 90, 30);
+//        mainRenderer.drawLineNaive(10, 50, 90, 30);
+        mainRenderer.drawTriangle(new Vec2f(10,40), new Vec2f(10,60), new Vec2f(90,10), new Color(255,0,0));
         try {
             mainRenderer.save();
         } catch (IOException ex) {
