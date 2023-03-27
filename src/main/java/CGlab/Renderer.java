@@ -23,6 +23,31 @@ public class Renderer {
         this.filename = filename;
     }
 
+    public Vec3f barycentric(Vec2f A, Vec2f B, Vec2f C, Vec2f P) {
+        Vec3f v1 = new Vec3f((B.x - A.x), (C.x - A.x), (A.x - P.x));
+        Vec3f v2 = new Vec3f((B.y - A.y), (C.y - A.y), (A.y - P.y));
+
+
+        Vec3f cross = cross(v1,v2);
+
+        Vec2f uv = new Vec2f(cross.x / cross.z, cross.y / cross.z);
+
+        Vec3f barycentric = new Vec3f(uv.x, uv.y, 1 - uv.x - uv.y);
+
+        return barycentric;
+    }
+
+    public Vec3f cross(Vec3f w1,Vec3f w2){
+        float x = w1.y * w2.z - w1.z * w2.y;
+        float y = w1.z * w2.x - w1.x * w2.z;
+        float z = w1.x * w2.y - w1.y * w2.x;
+        return new Vec3f(x, y, z);
+    }
+
+
+
+
+
     public void drawPoint(int x, int y) {
         int white = 255 | (255 << 8) | (255 << 16) | (255 << 24);
         render.setRGB(x, y, white);
