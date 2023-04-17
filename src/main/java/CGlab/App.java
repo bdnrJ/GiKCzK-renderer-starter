@@ -19,19 +19,31 @@ public class App {
         Integer width = Integer.parseInt(args[1]);
         Integer height = Integer.parseInt(args[2]);
 
-        System.out.println(filePath);
-        System.out.println(width);
-        System.out.println(height);
+        System.out.println("Podane argumanety: ");
+        System.out.println("Sciezka: "+filePath);
+        System.out.println("Width: "+width);
+        System.out.println("Height:"+height);
 
-        Renderer mainRenderer = new Renderer(filePath);
-        mainRenderer.clear();
-//        mainRenderer.drawLineNaive(10, 50, 90, 30);
-        mainRenderer.drawTriangle(new Vec2f(10,40), new Vec2f(10,60), new Vec2f(90,10), new Color(255,0,0));
+        RandomColorRenderer mainRenderer = new RandomColorRenderer(filePath, width, height);
+        Model jelen = new Model();
         try {
+            jelen.readOBJ("C:\\Users\\student\\IdeaProjects\\GiKCzK-renderer-starter\\img\\deer.obj");
+            mainRenderer.clear();
+            mainRenderer.render(jelen);
             mainRenderer.save();
-        } catch (IOException ex) {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+
+//        Renderer mainRenderer = new Renderer(filePath);
+//        mainRenderer.clear();
+////        mainRenderer.drawLineNaive(10, 50, 90, 30);
+//        mainRenderer.drawTriangle(new Vec2f(10,40), new Vec2f(10,60), new Vec2f(90,10), new Color(255,0,0));
+//        try {
+//            mainRenderer.save();
+//        } catch (IOException ex) {
+//            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     public String getVersion() {

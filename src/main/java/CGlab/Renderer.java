@@ -14,14 +14,14 @@ public class Renderer {
     public enum LineAlgo { NAIVE, DDA, BRESENHAM, BRESENHAM_INT; }
 
     public BufferedImage render;
-    public  int h = 200;
-    public  int w = 200;
+    public  int h = 1000;
+    public  int w = 1000;
 
     private String filename;
     private LineAlgo lineAlgo = LineAlgo.NAIVE;
 
     public Renderer(String filename) {
-        render = new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB);
+        render = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_ARGB);
         this.filename = filename;
     }
 
@@ -29,8 +29,6 @@ public class Renderer {
         render = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         this.filename = filename;
     }
-
-
 
     public Vec3f barycentric(Vec2f A, Vec2f B, Vec2f C, Vec2f P) {
         Vec3f v1 = new Vec3f((B.x - A.x), (C.x - A.x), (A.x - P.x));
