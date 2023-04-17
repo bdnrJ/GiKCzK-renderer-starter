@@ -15,4 +15,13 @@ public class Vec3f {
     public String toString() {
         return x + " " + y + " " + z;
     }
+    public float x() {
+        return  x;
+    }
+    public float y() {
+        return  y;
+    }
+    public float z() {
+        return  z;
+    }
 }

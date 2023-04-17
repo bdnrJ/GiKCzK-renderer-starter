@@ -13,9 +13,9 @@ public class Renderer {
 
     public enum LineAlgo { NAIVE, DDA, BRESENHAM, BRESENHAM_INT; }
 
-    private BufferedImage render;
-    public final int h = 200;
-    public final int w = 200;
+    public BufferedImage render;
+    public  int h = 200;
+    public  int w = 200;
 
     private String filename;
     private LineAlgo lineAlgo = LineAlgo.NAIVE;
@@ -25,6 +25,13 @@ public class Renderer {
         this.filename = filename;
     }
 
+    public Renderer(String filename, int w, int h) {
+        render = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        this.filename = filename;
+    }
+
+
+
     public Vec3f barycentric(Vec2f A, Vec2f B, Vec2f C, Vec2f P) {
         Vec3f v1 = new Vec3f((B.x - A.x), (C.x - A.x), (A.x - P.x));
         Vec3f v2 = new Vec3f((B.y - A.y), (C.y - A.y), (A.y - P.y));
@@ -32,6 +39,17 @@ public class Renderer {
 
         Vec3f cross = cross(v1,v2);
 
+        Vec2f uv = new Vec2f(cross.x / cross.z, cross.y / cross.z);
+
+        Vec3f barycentric = new Vec3f(uv.x, uv.y, 1 - uv.x - uv.y);
+
+        return barycentric;
+    }
+
+    public Vec3f barycentric(Vec2i A, Vec2i B, Vec2i C, Vec2i P) {
+        Vec3f v1 = new Vec3f((B.x - A.x), (C.x - A.x), (A.x - P.x));
+        Vec3f v2 = new Vec3f((B.y - A.y), (C.y - A.y), (A.y - P.y));
+        Vec3f cross = cross(v1, v2);
         Vec2f uv = new Vec2f(cross.x / cross.z, cross.y / cross.z);
 
         Vec3f barycentric = new Vec3f(uv.x, uv.y, 1 - uv.x - uv.y);
@@ -50,6 +68,24 @@ public class Renderer {
         for (int i = minx; i <= maxx; i++) {
             for (int j = miny; j <= maxy; j++) {
                 Vec2f P = new Vec2f((float) i, (float) j);
+                if ((barycentric(A, B, C, P).x > 0 && barycentric(A, B, C, P).x < 1 && barycentric(A, B, C, P).y < 1 && barycentric(A, B, C, P).y > 0 && barycentric(A, B, C, P).z > 0 && barycentric(A, B, C, P).z < 1)) {
+                    drawPoint(i, j, color);
+                }
+            }
+        }
+    }
+
+    public void drawTriangle(Vec2i A, Vec2i B, Vec2i C, Color color) {
+        Integer[] xs = {A.x, B.x, C.x};
+        Integer[] ys = {A.y, B.y, C.y};
+        int minx = Collections.min(Arrays.asList(xs));
+        int maxx = Collections.max(Arrays.asList(xs));
+        int miny = Collections.min(Arrays.asList(ys));
+        int maxy = Collections.max(Arrays.asList(ys));
+
+        for (int i = minx; i <= maxx; i++) {
+            for (int j = miny; j <= maxy; j++) {
+                Vec2i P = new Vec2i( i,j);
                 if ((barycentric(A, B, C, P).x > 0 && barycentric(A, B, C, P).x < 1 && barycentric(A, B, C, P).y < 1 && barycentric(A, B, C, P).y > 0 && barycentric(A, B, C, P).z > 0 && barycentric(A, B, C, P).z < 1)) {
                     drawPoint(i, j, color);
                 }
