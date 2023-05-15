@@ -22,12 +22,12 @@ public class App {
         System.out.println("Podane argumanety: ");
         System.out.println("Sciezka: "+filePath);
         System.out.println("Width: "+width);
-        System.out.println("Height:"+height);
+        System.out.println("Height: "+height);
 
-        RandomColorRenderer mainRenderer = new RandomColorRenderer(filePath, width, height);
+        FlatShadingRenderer mainRenderer = new FlatShadingRenderer(filePath, width, height, "NAIVE");
         Model jelen = new Model();
         try {
-            jelen.readOBJ("C:\\Users\\student\\IdeaProjects\\GiKCzK-renderer-starter\\img\\deer.obj");
+            jelen.readOBJ("C:\\Users\\student\\Desktop\\GiKCzK-renderer-starter\\img\\deer-mod.obj");
             mainRenderer.clear();
             mainRenderer.render(jelen);
             mainRenderer.save();

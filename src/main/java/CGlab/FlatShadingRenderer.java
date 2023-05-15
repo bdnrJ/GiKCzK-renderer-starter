@@ -1,14 +1,12 @@
 package CGlab;
 
-import java.awt.*;
-
 import static java.lang.Math.cos;
 import static java.lang.Math.sqrt;
 
 public class FlatShadingRenderer extends RandomColorRenderer{
 
-    public FlatShadingRenderer(String filename, Integer width, Integer height) {
-        super(filename,width,height);
+    public FlatShadingRenderer(String filename, Integer width, Integer height, String method) {
+        super(filename,width,height,method);
     }
 
     public float cosBetweenVectors(Vec3f A, Vec3f B){
@@ -21,7 +19,7 @@ public class FlatShadingRenderer extends RandomColorRenderer{
     public Vec3f Normal(Vec3f A, Vec3f B, Vec3f C) {
         Vec3f v1 = new Vec3f((B.x - A.x), (B.y - A.y),(B.z - A.z));
         Vec3f v2 = new Vec3f((C.x - A.x), (C.y - A.y),(C.z - A.z));
-        Vec3f cross = cross(v1, v2);
+        Vec3f cross = crossProduct(v1, v2);
         return cross;
     }
 
@@ -38,7 +36,7 @@ public class FlatShadingRenderer extends RandomColorRenderer{
 
             Float cosBetweenVectors = cosBetweenVectors( new Vec3f( 50,50,50), Normal( screen_coords3[0],screen_coords3[1],screen_coords3[2])) *128 + 128;
             Integer cosBetweenVectorsInt = Math.round(cosBetweenVectors);
-            drawTriangle(screen_coords[0], screen_coords[1], screen_coords[2], new Color(cosBetweenVectorsInt,cosBetweenVectorsInt,cosBetweenVectorsInt));
+            drawTriangle(screen_coords[0], screen_coords[1], screen_coords[2],new Color(cosBetweenVectorsInt,cosBetweenVectorsInt,cosBetweenVectorsInt));
         }
     }
 
